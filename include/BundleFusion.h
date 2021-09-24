@@ -9,7 +9,7 @@
  * 1. init GPU devices
  * 2. init config file
  * 3. init rgbd sensor
- * 
+ *
  * @param app_config global app config file path
  * @param bundle_config global bundle function config file path
  * @return true if init success else false
@@ -33,21 +33,29 @@ bool processInputRGBDFrame(cv::Mat& rgb, cv::Mat& depth);
 bool deinitBundleFusion();
 
 /**
- * 
+ *
  * set if we publish rgb color to outputwrapper
  * @param publish_flag true for publish
- * 
+ *
  * */
 void setPublishRGBFlag(bool publish_flag);
 
 
 /**
- * 
+ *
  * set if we publish mesh to outputwrapper
  * @param publish_flag true for publish
- * 
+ *
  * */
 void setPublishMeshFlag(bool publish_flag);
+
+/**
+ * save trajector function
+ * @param filename save file name
+ * @param overwriteExistingFile existing file will be replaced if true
+ * @return save success
+ * */
+bool saveTrajectoryIntoFile ( const std::string& filename, bool overwriteExistingFile /*= false*/ );
 
 /**
  * save mesh function (.ply file for meshlab)

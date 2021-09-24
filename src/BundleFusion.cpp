@@ -392,6 +392,14 @@ void setPublishMeshFlag ( bool publish_flag )
     publish_mesh = publish_flag;
 }
 
+bool saveTrajectoryIntoFile ( const std::string& filename, bool overwriteExistingFile /*= false*/ )
+{
+
+    std::vector<mat4f> trajectory;
+    ( ( SensorDataReader* ) g_RGBDSensor )->getTrajectory ( trajectory );
+    g_RGBDSensor->saveRecordedFramesToFile(filename, trajectory, true);
+}
+
 bool saveMeshIntoFile ( const std::string& filename, bool overwriteExistingFile /*= false*/ )
 {
     //g_sceneRep->debugHash();

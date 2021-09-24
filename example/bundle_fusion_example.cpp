@@ -38,7 +38,6 @@ int main ( int argc, char** argv )
         std::cerr<<"BundleFusion init failed, exit." << std::endl;
         return -1;
     }
-
     // read for bundlefusion dataset from http://graphics.stanford.edu/projects/bundlefusion/
     struct dirent *ptr;
     DIR *dir;
@@ -53,7 +52,7 @@ int main ( int argc, char** argv )
         std::string filename_extension = std::string ( ptr->d_name );
         if ( filename_extension.size() < 10 )
             continue;
-        if ( filename_extension.substr ( filename_extension.size() - 10, 10 ) == ".color.jpg" )
+        if ( filename_extension.substr ( filename_extension.size() - 10, 10 ) == ".color.png" )
         {
             filenames.push_back ( filename_extension.substr ( 0, filename_extension.size() - 10 ) );
         }
@@ -62,7 +61,7 @@ int main ( int argc, char** argv )
     for ( auto& filename : filenames )
     {
         std::cout<<filename<<std::endl;
-        std::string rgb_path = dataset_root + "/" + filename + ".color.jpg";
+        std::string rgb_path = dataset_root + "/" + filename + ".color.png";
         std::string dep_path = dataset_root + "/" + filename + ".depth.png";
         //std::string pos_path = data_root + "/" + filename + ".pose.txt";
         cv::Mat rgbImage = cv::imread ( rgb_path );
@@ -86,9 +85,11 @@ int main ( int argc, char** argv )
             std::cout<<"\Failed! frame " << filename << " not added into BundleFusion." << std::endl;
         }
     }
-    
-    while(cv::waitKey (20) != 'q');
 
+    // while(cv::waitKey (20) != 'q');
+
+    saveMeshIntoFile("recons.ply", true);
+    // saveTrajectoryIntoFile("trajectory.txt", true);
 
     deinitBundleFusion();
 
